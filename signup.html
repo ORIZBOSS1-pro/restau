@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORIZBOSS - Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+<!-- Global Navigation Bar -->
+<!-- Global Navigation Bar with Hamburger Menu -->
+<header class="global-header">
+    <nav class="global-navbar">
+        <a href="index.html" class="global-logo">
+            <i class="fa-solid fa-bolt logo-bolt"></i>
+            ORIZBOSS <span>food & more</span>
+        </a>
+
+        <!-- Hamburger Icon Button -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <!-- Navigation Menu Container -->
+        <div class="nav-menu" id="navMenu">
+            <ul class="global-nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#menu">Menu</a></li>
+                <li><a href="index.html#order">Order Now</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="#" id="trackOrderBtn">Track Order</a></li>
+            </ul>
+            <div class="nav-auth-btns">
+                <a href="signin.html" class="nav-btn btn-login">Sign In</a>
+                <a href="signup.html" class="nav-btn btn-signup">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+// Hamburger Menu Toggle Logic
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.global-nav-links a');
+
+if (hamburgerBtn && navMenu) {
+    // Toggle menu open/close on click
+    hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when a navigation link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburgerBtn.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+</script>
+
+
+    <!-- Background Lightning Canvas -->
+    <canvas id="lightningCanvas"></canvas>
+
+    <!-- Glowing Background Orbs -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="signup-container">
+        <!-- Brand Header with Lightning Badge -->
+        <div class="brand-header">
+            <div class="lightning-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1>SIGN UP</h1>
+        </div>
+
+        <form class="signup-form" onsubmit="event.preventDefault();">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join us for exclusive deals and instant orders!</p>
+
+            <div class="input-group">
+                <i class="fa-regular fa-user input-icon"></i>
+                <input type="text" id="fullname" required placeholder=" ">
+                <label for="fullname">Full Name</label>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-regular fa-envelope input-icon"></i>
+                <input type="email" id="email" required placeholder=" ">
+                <label for="email">Email Address</label>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" id="password" required placeholder=" ">
+                <label for="password">Password</label>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-shield-halved input-icon"></i>
+                <input type="password" id="confirm-password" required placeholder=" ">
+                <label for="confirm-password">Confirm Password</label>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="terms-check" required>
+                <label for="terms-check">I agree to the <a href="#">Terms & Conditions</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>POWER UP & SIGN UP</span>
+                <i class="fa-solid fa-bolt-lightning"></i>
+            </button>
+
+            <div class="divider">
+                <span>OR SIGN IN WITH</span>
+            </div>
+
+            <div class="social-signup">
+                <button type="button" class="social-btn"><i class="fa-brands fa-google"></i></button>
+                <button type="button" class="social-btn"><i class="fa-brands fa-apple"></i></button>
+                <button type="button" class="social-btn"><i class="fa-brands fa-facebook-f"></i></button>
+            </div>
+
+            <p class="login-link">Already have an account? <a href="signin.html">Log In</a></p>
+        </form>
+        
+    </div>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

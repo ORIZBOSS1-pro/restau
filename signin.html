@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORIZBOSS - Sign In</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="signinstyle.css">
+  
+</head>
+<body>
+    
+<!-- Global Navigation Bar -->
+<!-- Global Navigation Bar with Hamburger Menu -->
+<header class="global-header">
+    <nav class="global-navbar">
+        <a href="index.html" class="global-logo">
+            <i class="fa-solid fa-bolt logo-bolt"></i>
+            ORIZBOSS <span>food & more</span>
+        </a>
+
+        <!-- Hamburger Icon Button -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <!-- Navigation Menu Container -->
+        <div class="nav-menu" id="navMenu">
+            <ul class="global-nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#menu">Menu</a></li>
+                <li><a href="index.html#order">Order Now</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="#" id="trackOrderBtn">Track Order</a></li>
+            </ul>
+            <div class="nav-auth-btns">
+                <a href="signin.html" class="nav-btn btn-login">Sign In</a>
+                <a href="signup.html" class="nav-btn btn-signup">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+// Hamburger Menu Toggle Logic
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.global-nav-links a');
+
+if (hamburgerBtn && navMenu) {
+    // Toggle menu open/close on click
+    hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when a navigation link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburgerBtn.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+</script>
+
+
+    <!-- Background Lightning Canvas -->
+    <canvas id="lightningCanvas"></canvas>
+
+    <!-- Glowing Background Ambient Orbs -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Sign-In Box -->
+    <div class="signin-container">
+        <!-- Brand Badge -->
+        <div class="brand-header">
+            <div class="lightning-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1>SIGN IN</h1>
+        </div>
+
+        <form class="signin-form" onsubmit="event.preventDefault();">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to manage orders & express checkouts!</p>
+
+            <div class="input-group">
+                <i class="fa-regular fa-envelope input-icon"></i>
+                <input type="email" id="signin-email" required placeholder=" ">
+                <label for="signin-email">Email Address</label>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" id="signin-password" required placeholder=" ">
+                <label for="signin-password">Password</label>
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>SIGN IN NOW</span>
+                <i class="fa-solid fa-bolt-lightning"></i>
+            </button>
+
+            <div class="divider">
+                <span>OR SIGN IN WITH</span>
+            </div>
+
+            <div class="social-signin">
+                <button type="button" class="social-btn"><i class="fa-brands fa-google"></i></button>
+                <button type="button" class="social-btn"><i class="fa-brands fa-apple"></i></button>
+                <button type="button" class="social-btn"><i class="fa-brands fa-facebook-f"></i></button>
+            </div>
+
+            <p class="signup-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </form>
+    </div>
+
+    <!-- Interactive Lightning Script -->
+    <script>
+        const canvas = document.getElementById('lightningCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Lightning bolt object class
+        class Lightning {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.path = [{ x: this.x, y: this.y }];
+                this.maxSegments = 20;
+                this.segmentLength = Math.random() * 20 + 15;
+                this.alpha = 1;
+                this.generate();
+            }
+
+            generate() {
+                let currentX = this.x;
+                let currentY = this.y;
+
+                for (let i = 0; i < this.maxSegments; i++) {
+                    currentX += (Math.random() - 0.5) * 60;
+                    currentY += this.segmentLength;
+                    this.path.push({ x: currentX, y: currentY });
+
+                    if (currentY > height) break;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.path[0].x, this.path[0].y);
+
+                for (let i = 1; i < this.path.length; i++) {
+                    ctx.lineTo(this.path[i].x, this.path[i].y);
+                }
+
+                ctx.strokeStyle = `rgba(0, 210, 255, ${this.alpha})`;
+                ctx.lineWidth = 2;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#00d2ff';
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            update() {
+                this.alpha -= 0.04; // Fade out rate
+            }
+        }
+
+        let lightnings = [];
+
+        // Randomly generate background lightning
+        function createRandomLightning() {
+            if (Math.random() < 0.05) {
+                const startX = Math.random() * width;
+                lightnings.push(new Lightning(startX, 0));
+            }
+        }
+
+        // Trigger lightning on click anywhere
+        window.addEventListener('click', (e) => {
+            lightnings.push(new Lightning(e.clientX, 0));
+        });
+
+        function animate() {
+            ctx.fillStyle = 'rgba(8, 9, 18, 0.25)';
+            ctx.fillRect(0, 0, width, height);
+
+            createRandomLightning();
+
+            for (let i = lightnings.length - 1; i >= 0; i--) {
+                lightnings[i].draw();
+                lightnings[i].update();
+
+                if (lightnings[i].alpha <= 0) {
+                    lightnings.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
